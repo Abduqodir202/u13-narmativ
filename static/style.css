@@ -10,7 +10,7 @@
     padding: 20px;
     border-radius: 12px;
     text-align: left;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .book-card h2 {
@@ -20,4 +20,28 @@
 
 .book-card p {
     color: #666;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.footer {
+    background: #111;
+    color: #ccc;
+    padding: 15px 0;
+    font-size: 14px;
+}
+
+.footer p {
+    margin: 5px 0;
 }

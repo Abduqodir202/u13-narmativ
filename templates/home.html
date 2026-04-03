@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>bosh sahifa</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<div class="container">
-    <h1>Salom <span>{{ name }}</span></h1>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, ad aperiam architecto culpa eaque est,
-        fugiat harum minima nisi, numquam perferendis perspiciatis possimus reiciendis sapiente temporibus ullam vitae
-        voluptate voluptatibus.
-    </p>
-</div>
+{% block title %}
+	home
+{% endblock %}
 
-</body>
-</html>
+{% block main %}
+    <a href="{% url 'book_list' %}"><h1>kitoblar</h1></a>
+{% endblock %}

@@ -7,7 +7,9 @@
 {% block main %}
 
     <h1>📚 Book List page</h1>
-
+    <a href="{% url 'book_create_form' %}">
+        <button class="btn btn-primary">create</button>
+    </a>
     <div class="books">
         {% for book in books %}
             <div class="book-card">
@@ -15,8 +17,15 @@
                 <p>{{ book.description }}</p>
                 <p>{{ book.created_time }}</p>
                 <a href="{% url 'book_detail' book.id %}">
-                    <button>detail</button>
+                    <button class="btn btn-primary">detail</button>
                 </a>
+                <a href="{% url 'book_update_form' book.id %}">
+                    <button class="btn btn-warning">update</button>
+                </a>
+                <a href="{% url 'book_delete' book.id %}">
+                    <button class="btn btn-danger">delete</button>
+                </a>
+
             </div>
         {% endfor %}
     </div>

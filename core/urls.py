@@ -19,17 +19,17 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path, include
 
-# def home(request):
-#     # print(request.META)
-#     # DB ga boglanib malumot olsak boladi  -M model
-#     # va malumotlarni htmlga berib respons yuborsak boladi -T template
-#     name = request.GET.get('name')
-#     return render(request, 'home.html', context={"name": name})
-#     # return HttpResponse("Hello, world.")
+def home(request):
+    # print(request.META)
+    # DB ga boglanib malumot olsak boladi  -M model
+    # va malumotlarni htmlga berib respons yuborsak boladi -T template
+    name = request.GET.get('name')
+    return render(request, 'home.html', context={"name": name})
+    # return HttpResponse("Hello, world.")
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/',include('books.urls')),
-    # path('', home),
+    path('', home),
 ]
