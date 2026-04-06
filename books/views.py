@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from books.forms import BooksForm, BookModelForm
 from books.models import Books
 
 
@@ -15,26 +16,42 @@ def book_detail(request, pk):
 
 
 def book_create_form(request):
-    return render(request, 'books/create.html')
+    # form = BooksForm()
+    form = BookModelForm()
+    return render(request, 'books/create.html', {"form": form})
 
 
 def book_create(request):
-    data = request.POST
-    book = Books(title=data.get("title"), description=data.get("description"), price=data.get("price"))
-    book.save()
-    # Books.objects.create(title=data['title'], description=data['description'], price=data['price'])
-    return redirect('book_list')
+    # data = request.POST
+    # book = Books(title=data.get("title"), description=data.get("description"), price=data.get("price"))
+    # book.save()
+    # # Books.objects.create(title=data['title'], description=data['description'], price=data['price'])
+    # return redirect('book_list')
+    # form = BooksForm(request.POST)
+    form = BookModelForm(request.POST)
+    if form.is_valid():
+        # data = form.cleaned_data
+        # Books.objects.create(**data)
+        form.save()
+        return redirect('book_list')
+    return render(request, 'books/create.html', {"form": form})
 
 
 def book_update_forme(request, pk=None):
     book = Books.objects.filter(id=pk).first()
-    return render(request, 'books/update.html', {"book": book})
+    form = BookModelForm(instance=book)
+    return render(request, 'books/update.html', {"form": form, "book": book})
 
 
 def book_update(request, pk=None):
-    Books.objects.filter(id=pk).update(title=request.POST.get("title"), description=request.POST.get("description"),
-                                       price=request.POST.get("price"))
-    return redirect('book_list')
+    # Books.objects.filter(id=pk).update(title=request.POST.get("title"), description=request.POST.get("description"),
+    #                                    price=request.POST.get("price"))
+    book = Books.objects.filter(id=pk).first()
+    form = BookModelForm(instance=book, data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('book_list')
+    return render(request, 'books/update.html', {"form": form, "book": book})
 
 
 def book_delete(request, pk=None):
