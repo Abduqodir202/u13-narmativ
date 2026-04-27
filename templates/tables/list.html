@@ -6,28 +6,28 @@
 
 {% block main %}
 
-    <h1>📚 Tables List page</h1>
+    <h1> Tables List page</h1>
     {% if request.user.is_authenticated %}
 
-        <a href="{% url 'book_create_form' %}">
+        <a href="{% url 'tables_create_form' %}">
             <button class="btn btn-primary">create</button>
         </a>
     {% endif %}
-    <div class="books">
+    <div class="table">
         {% for table in tables %}
-            <div class="book-card">
+            <div class="Table-card">
                 <h2>{{ table.title }}</h2>
                 <p>{{ table.description }}</p>
                 <p>{{ table.created_time }}</p>
-                <a href="{% url 'book_detail' book.id %}">
+                <a href="{% url 'tables_detail' table.id %}">
                     <button class="btn btn-primary">detail</button>
                 </a>
 
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'book_update_form' book.id %}">
+                    <a href="{% url 'tables_update_form' table.id %}">
                         <button class="btn btn-warning">update</button>
                     </a>
-                    <a href="{% url 'book_delete' book.id %}">
+                    <a href="{% url 'tables_delete' book.id %}">
                         <button class="btn btn-danger">delete</button>
                     </a>
                 {% endif %}
@@ -53,7 +53,7 @@
 
 
             {#          raqamlar chiqadigan joy  #}
-            {% for book in books.paginator %}
+            {% for table in tables.paginator %}
                 {% if tables.number == table.number %}
                     <li class="page-item active"><a class="page-link"
                                                     href="?search={{ search }}&page={{ table.number }}">{{ table.number }}</a>

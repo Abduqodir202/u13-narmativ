@@ -1,16 +1,19 @@
 from django.db import models
 
 
+# 🔹 1. QuerySet (filter().delete() ni ushlaydi)
 class BaseQuerySet(models.QuerySet):
     def delete(self):
-        self.update(is_active=False)
+        return self.update(is_deleted=True)
 
 
-class DeleteManager(models.Manager):
-    def get_queryset(self) -> models.QuerySet:
-        return BaseQuerySet(self.model).filter(is_active=True)
+# 🔹 2. Manager (faqat aktivlarni qaytaradi)
+class ActiveManager(models.Manager):
+    def get_queryset(self):
+        return BaseQuerySet(self.model, using=self._db).filter(is_deleted=False)
 
 
+# 🔹 3. BaseModel (ixtiyoriy)
 class BaseModel(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
@@ -19,11 +22,18 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class DeletedModel(models.Model):
-    is_active = models.BooleanField(default=True)
 
-    objects = DeleteManager()
-    all_objects = models.Manager()
+
+class DeletedModel(models.Model):
+    is_deleted = models.BooleanField(default=False)
+
+    objects = ActiveManager()
+    all_objects = BaseQuerySet.as_manager()
+
+
+    def delete(self, using=None, keep_parents=False):
+        self.is_deleted = True
+        self.save()
 
     class Meta:
         abstract = True

@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}
+    detail
+{% endblock %}
+
+{% block main %}
+    <h1>📚 Table Detail page</h1>
+
+    <div class="table">
+        <div class="book-card">
+            <h2>{{ table.title }}</h2>
+            <p>{{ table.description }}</p>
+            <p>{{ table.created_time }}</p>
+            <p>{{ table.updated_time }}</p>
+            <a href="{% url 'book_list' %}">
+                <button>orqaga</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+

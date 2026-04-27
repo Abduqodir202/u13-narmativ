@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "game",
     "skills",
     "cars",
+    "files",
+    "tables",
 ]
 
 MIDDLEWARE = [

@@ -34,6 +34,48 @@ class Tables(BaseModel, DeletedModel):
 
     def __str__(self):
         return f'{self.title}'
+from common.models import BaseModel, DeletedModel
+
+
+class TableType(models.TextChoices):
+    STANDARD = 'standard'
+    BADIIY = 'badiiy'
+    ILMIY = 'ilmiy'
+
+
+class Author(BaseModel, DeletedModel):
+    first_name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20)
+    birth_date = models.DateField()
+
+    def __str__(self):
+        return f'{self.first_name or ""} {self.last_name}'
+
+    class Meta:
+        db_table = 'tables_authors'
+        ordering = ['-birth_date']
+
+
+class Table(BaseModel, DeletedModel):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    authors = models.ManyToManyField(
+        Author,
+        db_table='tables_authors_rel'
+    )
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    type = models.CharField(
+        max_length=20,
+        choices=TableType.choices,
+        default=TableType.STANDARD
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'tables'
+        ordering = ['-created_time']
 
     class Meta:
         db_table = 'tables'

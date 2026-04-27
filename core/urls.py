@@ -37,5 +37,6 @@ urlpatterns = [
     path('game/', include('game.urls')),
     path('skills/', include('skills.urls')),
     path('cars/', include('cars.urls')),
+    path('tables/', include('tables.urls')),
     path('', home),
 ]
