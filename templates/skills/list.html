@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    {% for i in skills %}
+        <h1>{{ i.name }} <br> <br></h1>
+        <h3>{{ i.descriptions }} <br> <br></h3>
+        <h4> {{ i.price }} </h4><br> <br> <br> <br>
+    {% endfor %}
+
+{% endblock %}
