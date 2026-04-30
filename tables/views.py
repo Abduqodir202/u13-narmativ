@@ -17,7 +17,6 @@ def tables_list(request):
             Q(description__icontains=search)
         )
 
-    # 📄 PAGINATION
     paginator = Paginator(tables, 3)
     page_obj = paginator.get_page(page_number)
 
