@@ -5,7 +5,7 @@ from .models import Tables
 
 
 def tables_list(request):
-    search = request.GET.get('search', '')
+    search = request.GET.get('search', '').strip()
     page_number = request.GET.get('page', 1)
 
     tables = Tables.objects.all()
