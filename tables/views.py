@@ -10,7 +10,6 @@ def tables_list(request):
 
     tables = Tables.objects.all()
 
-    # 🔍 SEARCH
     if search:
         tables = tables.filter(
             Q(title__icontains=search) |
