@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts</title>
+</head>
+<body>
+
+<h2>Posts</h2>
+
+<form method="GET">
+    <input type="text" name="q" placeholder="Search..." value="{{ search }}">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+<!-- 📄 LIST -->
+{% for post in page_obj %}
+    <div style="border:1px solid #ccc; padding:10px; margin:5px;">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+    </div>
+{% empty %}
+    <p>No posts found</p>
+{% endfor %}
+
+<hr>
+
+<!-- 📌 PAGINATION -->
+<div>
+    {% if page_obj.has_previous %}
+        <a href="?q={{ search }}&page={{ page_obj.previous_page_number }}">⬅ Prev</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?q={{ search }}&page={{ page_obj.next_page_number }}">Next ➡</a>
+    {% endif %}
+</div>
+
+</body>
+</html>
